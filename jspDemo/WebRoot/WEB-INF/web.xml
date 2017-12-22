@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  
+  <session-config>
+  	<session-timeout>30</session-timeout>
+  </session-config>
   <servlet>
     <servlet-name>ServletDemo1</servlet-name>
     <servlet-class>www.geshiqi.com.servletDemo1.ServletDemo1</servlet-class>
@@ -125,6 +127,55 @@
     <servlet-name>RequestDemo2</servlet-name>
     <servlet-class>www.geshiqi.com.servletDemo1.RequestDemo2</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CookieDemo</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CookieDemo</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CookieDemo2</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CookieDemo2</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CSessionDemo</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CSessionDemo</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CSessionDemo3</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CSessionDemo3</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CBuySession</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CBuySession</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CarSessionBuy</servlet-name>
+    <servlet-class>www.geshiqi.com.servletDemo1.CarSessionBuy</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FormToken</servlet-name>
+    <servlet-class>geshiqi.utils.FormToken</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
 
 
 
@@ -219,6 +270,34 @@
   <servlet-mapping>
     <servlet-name>RequestDemo2</servlet-name>
     <url-pattern>/servlet/RequestDemo2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CookieDemo</servlet-name>
+    <url-pattern>/servlet/CookieDemo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CookieDemo2</servlet-name>
+    <url-pattern>/servlet/CookieDemo2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CSessionDemo</servlet-name>
+    <url-pattern>/servlet/CSessionDemo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CSessionDemo3</servlet-name>
+    <url-pattern>/servlet/CSessionDemo3</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CBuySession</servlet-name>
+    <url-pattern>/servlet/CBuySession</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CarSessionBuy</servlet-name>
+    <url-pattern>/servlet/CarSessionBuy</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FormToken</servlet-name>
+    <url-pattern>/servlet/FormToken</url-pattern>
   </servlet-mapping>
   
   <context-param>

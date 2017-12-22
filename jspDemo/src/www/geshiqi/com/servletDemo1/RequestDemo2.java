@@ -16,6 +16,15 @@ public class RequestDemo2 extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		
+//利用线程休眠防止表单提交		
+		try{
+			Thread.sleep(3000);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("提交一次");
+		
 		String userid = request.getParameter("userid");
 		String username = request.getParameter("username");
 		String userpass = request.getParameter("userpass");
@@ -57,20 +66,20 @@ public class RequestDemo2 extends HttpServlet {
 		}
 		
 		//request对象封装的参数是以map的形式存储的
-		Map<String ,String[]> parameMap = request.getParameterMap();
-		for(Map.Entry<String, String[]> entry:parameMap.entrySet()){
-			String paramName = entry.getKey();
-			String paramValue = "";
-			String[] paramValueArr = entry.getValue();
-			for (int i=0;paramValueArr!=null && i<paramValueArr.length;i++){
-				if(i==paramValueArr.length-1){
-					paramValue+=paramValueArr[i];
-				}else{
-					paramValue+=paramValueArr[i]+",";
-				}
-			}
-			System.out.println(MessageFormat.format("{0}={1}", paramName,paramValue));
-		}
+//		Map<String ,String[]> parameMap = request.getParameterMap();
+//		for(Map.Entry<String, String[]> entry:parameMap.entrySet()){
+//			String paramName = entry.getKey();
+//			String paramValue = "";
+//			String[] paramValueArr = entry.getValue();
+//			for (int i=0;paramValueArr!=null && i<paramValueArr.length;i++){
+//				if(i==paramValueArr.length-1){
+//					paramValue+=paramValueArr[i];
+//				}else{
+//					paramValue+=paramValueArr[i]+",";
+//				}
+//			}
+//			System.out.println(MessageFormat.format("{0}={1}", paramName,paramValue));
+//		}
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

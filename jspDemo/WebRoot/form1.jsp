@@ -4,12 +4,24 @@
 <html>
   <head>
   <title>html得表单元素</title>
+  <script type="text/javascript">
+  var isCommitted  = false;
+  function dosubmit(){
+  	var btnSubmit = document.getElementById("submit");
+  	btnSubmit.disabled= "disabled";
+  	if(isCommitted ==false){
+  		isCommitted =true;
+  		return true;
+  	}else{
+  		return false;
+  	}
+  }</script>
   </head>
   
   <body>
   	<fieldset style="width:500px;margin-left: 750px">
   		<legend>Html的form表单元素</legend>
-  		<form action="${pageContext.request.contextPath }/servlet/RequestDemo2"method="post">
+  		<form action="${pageContext.request.contextPath }/servlet/RequestDemo2"method="post" onsubmit="return dosubmit()">
   		 编    号:<input type="text" name="userid" value="NO." size="2" maxlength="2"></br>
   		 用户名（文本框）:<input type="text" name="username" value="请输入用户名"></br>
   		 密码:<input type="password" name="userpass" value="请输入密码"></br>
@@ -27,9 +39,12 @@
   		 <input type="checkbox" name="inst" value="跳舞">跳舞
   		 说明：
   		 <textarea name="note" rows="5" cols="35"></textarea>
-  		 <input type="hidden" name="hiddenField" vlaue="hiddenvalue">
-  		 <input type="submit" value="提交">
+  		 
+  		 <input type="hidden" name="token" vlaue="<%=session.getAttribute("token")%>">
+  		 
+  		 <input type="submit" value="提交" id="submit">
   		 <input type="reset" value="重置">
+  		 
   		</form>
   	</fieldset>
   </body>
