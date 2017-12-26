@@ -46,6 +46,7 @@ public class ServletDemo6 extends HttpServlet {
 		prop.load(in);
 		String driver = prop.getProperty("driver");
 		response.getWriter().println(driver);
+		
 	}
 
  

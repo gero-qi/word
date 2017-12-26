@@ -169,6 +169,20 @@
     <servlet-name>FormToken</servlet-name>
     <servlet-class>geshiqi.utils.FormToken</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ServletCalculator</servlet-name>
+    <servlet-class>www.geshiqi.com.caculator.ServletCalculator</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>LogServelt</servlet-name>
+    <servlet-class>www.geshiqi.log.LogServelt</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -298,6 +312,14 @@
   <servlet-mapping>
     <servlet-name>FormToken</servlet-name>
     <url-pattern>/servlet/FormToken</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ServletCalculator</servlet-name>
+    <url-pattern>/servlet/ServletCalculator</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogServelt</servlet-name>
+    <url-pattern>/servlet/LogServelt</url-pattern>
   </servlet-mapping>
   
   <context-param>

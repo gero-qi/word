@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ServletDemo1 extends HttpServlet {
 	public void  doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException ,IOException{
-		String data="geshiqi";
-		ServletContext context = this.getServletContext();
-		context.setAttribute("data",data);
+		request.getRequestDispatcher("/WEB-INF/lib/UserBean1.jsp").forward(request, response);
+		 
 	}
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException ,IOException{
 		doGet(request,response);

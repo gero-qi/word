@@ -28,6 +28,7 @@
   		性别:<input type="radio" name="sex" value="男" checked> 男
   		<input type="radio" name="sex" value="女">女</br>
   		部门:
+  		
   		<select name="dept">
   			<option value="技术部">技术部
   			<option value="销售部" SELECTED>销售部
