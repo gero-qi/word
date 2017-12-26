@@ -9,9 +9,10 @@ public class CalculatorBean {
 	private double result;
 	String s1="公式:";
 	String s2="=";
-	public double getFirstNum() {
+	public CalculatorBean(){};
+/*	public double getFirstNum() {
 		return firstNum;
-	}
+	}*/
 	public void setFirstNum(double firstNum) {
 		this.firstNum = firstNum;
 	}
@@ -59,5 +60,11 @@ public class CalculatorBean {
 			throw new RuntimeException("对不起，传入的运算符非法");
 		}
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return firstNum+""+operator+""+secondNum+"="+result;
+	}
+	
 	
 }
