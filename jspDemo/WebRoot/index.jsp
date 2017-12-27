@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
  <%@ page isELIgnored="false" %>
+ <%@taglib uri="/geshiqi" prefix="xdp" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -18,6 +19,11 @@
   </head>
   
   <body>
+  
+  你的ip地址是（使用java代码获取输出）<%String ip = request.getRemoteAddr();out.write(ip); %>;
+  <hr/>
+  <xdp:viewIP/>
+  
     恭喜你验证成功g. <br>
     <%=(String)request.getAttribute("data") %>
     ${data}
