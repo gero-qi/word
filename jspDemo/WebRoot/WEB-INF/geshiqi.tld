@@ -7,33 +7,19 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>geshiqiTagLibrary</short-name>
 	<uri>/geshiqi</uri>
-    <tag>
+<!--     <tag>
     <name>viewIP</name>
     <tag-class>www.geshiqi.Tag.ViewIPTag</tag-class>
     <body-content>empty</body-content>
+    </tag> -->
+    <tag>
+    <name>test1</name>
+    <tag-class>www.geshiqi.Tag.TagTest1</tag-class>
+    <body-content>JSP</body-content>
     </tag>
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
 
 </taglib>
