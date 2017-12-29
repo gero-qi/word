@@ -1,8 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
  <%@ page isELIgnored="false" %>
- 
-  <%@taglib uri="/geshiqi" prefix="demo1" %>
- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -16,9 +14,8 @@
   <hr/>
   
   <demo1:test1>ceshi<br/></demo1:test1>
- 	<ul>
- 	<li><c:out value="1">out 标签的使用方法</c:out></li>
- 	
+ 	 
+ 	<li><c:out value="&lt未使用字符转义&gt" escapeXml="false"></c:out>
  	
  	
  	
