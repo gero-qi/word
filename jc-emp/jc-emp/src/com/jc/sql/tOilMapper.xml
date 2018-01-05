@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.jc.dao.tOilDao">
+ 	<select id="findAll" resultType="com.jc.entity.tOil">
+ 		select * from t_oil
+ 	</select>
+ 	
+ 	<delete id="delete" parameterType="string">
+ 		delete from t_oil where id=#{id}
+ 	</delete>
+ 	
+ 	<select id="findByName" parameterType="string" resultType="com.jc.entity.tOil">
+ 		select * from t_oil where oilname like concat(concat('%',#{oilname}),'%') 
+
+ 	</select>
+ 	
+ 	<select id="findByCompany" parameterType="string" resultType="com.jc.entity.tOil">
+ 		select * from t_oil where company like concat(concat('%',#{company}),'%') 
+ 	</select>
+ 	
+ 	<select id="findByProvinces" parameterType="string" resultType="com.jc.entity.tOil">
+ 		select * from t_oil where provinces like concat(concat('%',#{provinces}),'%') 
+ 	</select>
+ 	
+ 	<select id="findIds" parameterType="string" resultType="com.jc.entity.tOil">
+ 		select * from t_oil where t_oil.id IN ${oilname}
+ 	</select>
+ 	
+ 		<select id="findById" parameterType="string" resultType="com.jc.entity.tOil">
+ 		select * from t_oil where id=#{id}
+ 	</select>
+
+ 	<insert id="save" parameterType="com.jc.entity.tOil">
+ 		 INSERT  INTO `t_oil`
+ 		 (`oilname`,`company`,`firm`,`opentime`,`fromcity`,`tocity`,`provinces`,`oillength`,`capacity`,`pressue`,`temperature`,`diameter`)
+ 		  VALUES
+ 		 (#{oilname},#{company},#{firm},#{opentime},#{fromcity},#{tocity},#{provinces},#{oillength},#{capacity},#{pressue}, #{temperature},#{diameter})
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="com.jc.entity.tOil">
+ 		update t_oil  set 
+ 		 oilname=#{oilname},company=#{company},firm=#{firm},opentime=#{opentime},fromcity=#{fromcity},tocity=#{tocity},
+ 		 provinces=#{provinces},oillength=#{oillength},capacity=#{capacity},pressue=#{pressue},
+ 		 temperature=#{temperature},diameter=#{diameter}
+ 		where id=#{id}
+ 	</update>
+ 	
+ 	<select id="findPage" parameterType="int"
+ 						 resultType="com.jc.entity.tOil">
+ 		select * from t_oil limit #{num},5
+ 	</select>
+ 	
+ <select id="findRows" resultType="int">
+ 		select count(*) from t_oil
+ </select>
+	 <select id="findAll" resultType="int">
+ 		select * from t_oil
+ </select>
+ </mapper>
