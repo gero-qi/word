@@ -28,5 +28,8 @@ public interface tOilDao {
 	int findCount(String string);
 	
 	 List<tOil> findAll(String string);
-
+	 
+	 List<User> findUserPasswordByName(String name);
+	 
+	 void updateID(int id);
 }

@@ -1,13 +1,17 @@
 package com.jc.web;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -18,6 +22,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 
+import sun.misc.BASE64Encoder;
+
+import com.jc.dao.User;
 import com.jc.entity.tOil;
 import com.jc.util.MyBatisUtil;
 
@@ -27,6 +34,13 @@ public class ActionServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//检验登录标记
+		HttpSession	session = request.getSession();
+/*		if((session.getAttribute("sign")==null)||((String) session.getAttribute("sign")).length()<=0){
+			response.sendRedirect("login.jsp");
+		}*/
+		
+		 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		// 获取请求资源
@@ -35,32 +49,104 @@ public class ActionServlet extends HttpServlet {
 		// 分析请求路径，截取需要的部分
 		String action = uri.substring(uri.lastIndexOf("/") + 1,
 				uri.lastIndexOf("."));
-		System.out.println(action);
 		// 连接数据库
 		SqlSession session1 = MyBatisUtil.getSqlSession();
 		//页数
-		
 		List<Object> acount=session1.selectList("findRows");
-			int rowss= (Integer) acount.get(0) ;
-			int pages= rowss/5 +1;
-			int j=0;
-			Map<Integer, Integer> tmap = new LinkedHashMap<Integer, Integer>();
-			for(int i=1 ;i<=pages ;i++){
-				j = (i-1)*5;
-				tmap.put(i, j);
-			}
-			request.getSession().setAttribute("pagess", tmap);
-			
+		int rowss= (Integer) acount.get(0) ;
+		int pages= (rowss-1)/5+1;
+		int j=0;
+		Map<Integer, Integer> tmap = new HashMap<Integer, Integer>();
+		for(int i=1 ;i<=pages ;i++){
+			j = (i-1)*5;
+			tmap.put(i, j);
+		}
+		session.setAttribute("pagess", tmap);
+		//获取listEmp中的num			
 		
-		System.out.println(action);
-		int page=0;
+		 
+		if ("login".equals(action)) {
+			// 比较验证码是否正确
+			// 先获得输入的验证码
+			
+			String name="";
+			String password="";
+			String numberCheck="";
+			 
+			name=(String) request.getParameter("name");
+			password=(String) request.getParameter("password");
+			numberCheck=(String) request.getParameter("numberCheck");
+			String numberSession=(String) session.getAttribute("number");
+			System.out.println(numberCheck+""+numberSession+name);
+				//验证验证码
+				if (!numberCheck.equalsIgnoreCase(numberSession)) {
+					// 验证码错误
+					request.setAttribute("number_error", "验证码错误！");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+					return;
+				}
+				
+			try{
+				 
+				User user = session1.selectOne("findUserPasswordByName",name);
+				if(user==null){
+					request.setAttribute("str_error", "用户名错误");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+					return;
+				}
+				if(!password.equals(user.getName())){
+					request.setAttribute("str_error", "用户名错误");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+					return;
+				}
+				session.setAttribute("userName", name);
+				
+				String sign = makeToken(user);
+				 
+				session.setAttribute("sign",sign);
+				response.sendRedirect("list.do");
+				return;
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				session1.close();
+			}
+			}
+		
+		
+			SqlSession session2 = MyBatisUtil.getSqlSession();
+			if((session.getAttribute("sign")==null)||((String) session.getAttribute("sign")).length()<=0){
+				 
+				response.getWriter().write("<font color='green' size='25'>购买成功 5秒之后发生跳转到登录页面....</font>");
+				response.setHeader("Refresh", "5;URL="+request.getContextPath()+"/login.jsp");	
+				return;
+			}else{
+				try{
+					
+					String name=(String) session.getAttribute("userName");
+					System.out.println(name+"验证");
+					User user = session1.selectOne("findUserPasswordByName",name);
+					String signcheck = makeToken(user);					
+					if(!session.getAttribute("sign").equals(signcheck)){
+						response.getWriter().write("<font color='green' size='25'>购买成功 5秒之后发生跳转到登录页面....</font>");
+						response.setHeader("Refresh", "2;URL="+request.getContextPath()+"/login.jsp");		
+						return;
+					}
+				}catch(Exception e){
+					
+					e.printStackTrace();
+				}finally{
+					session2.close();
+				}
+			}
+		
+		
+		
 		// 查看员工列表
 		if ("list".equals(action)) {
 			int num=0;
-			page=num/20+1;
-	 
+			int page=1;
 			try {
-				 
 				List<tOil> emp = session1.selectList("findPage",num);
 				//把值绑定到request上
 				request.setAttribute("emp", emp);
@@ -79,15 +165,9 @@ public class ActionServlet extends HttpServlet {
 			}	
 		} 
 		else if("list1".equals(action)){
-			System.out.println(request.getSession().getAttribute("pages"));
-				//获取listEmp中的num
-				int num=Integer.parseInt(request.getParameter("num"));
-				//页数
-				page=num/5+1;
-				//将页数绑定到request上
-				request.setAttribute("page",page);
-				
- 				
+			int num=Integer.parseInt(request.getParameter("num"));
+			int page=num/5+1;
+				request.setAttribute("page",page);			
 			try{
 				List<tOil> emp=session1.selectList("findPage",num);
 				//判断数据库中的数据
@@ -151,8 +231,10 @@ public class ActionServlet extends HttpServlet {
 		// 删
 		else if ("delete".equals(action)) {
 			try {
-				String id = request.getParameter("id");
+				String idd = request.getParameter("id");
+				int id = Integer.parseInt(idd);
 				session1.delete("delete",id);
+				session1.update("updateID",id);
 				session1.commit();
 				response.sendRedirect("list.do");
 			} catch (Exception e) {
@@ -313,28 +395,19 @@ public class ActionServlet extends HttpServlet {
 				session1.close();
 			}
 		}
+		
 		// 登录前进行验证
-		else if ("login".equals(action)) {
-			// 比较验证码是否正确
-			// 先获得输入的验证码
-			System.out.println("111");
-			String number_input = request.getParameter("number");
-			System.out.println("输入的验证码:"+number_input);
-			// 再获得页面生成的验证码
-			HttpSession session = request.getSession();
-			String number_out = (String) session.getAttribute("number");
-			System.out.println("页面生成的验证码:"+number_out);
-/*			try{
-				//验证验证码
-				if (!number_input.equalsIgnoreCase(number_out)) {
-					// 验证码错误
-					request.setAttribute("number_error", "验证码错误！");
-					request.getRequestDispatcher("login.do").forward(request, response);
-					return;
-				}*/
+
+	
+	else if ("zhuxiao".equals(action)) {
+		session.removeAttribute("userName");
+		session.removeAttribute("sign");
+		response.sendRedirect("login.jsp");
+	}
+	}
+
 				// 获取输入的用户名和密码
-//				String name=request.getParameter("name");
-//				session.setAttribute("name", name);
+
 				// System.out.println(name);
 //				String pwd = request.getParameter("password");
 				// System.out.println(pwd);
@@ -342,7 +415,6 @@ public class ActionServlet extends HttpServlet {
 //				tOil emp=session1.selectOne("findByName",name);
 //				if(emp!=null && emp.getPassword().equals(pwd)){
 					// 重定向到员工表
-					response.sendRedirect("list.do");
 //				}else {
 //					request.setAttribute("str_error", "用户名或密码错误！");
 //					request.getRequestDispatcher("login.jsp").forward(request, response);	
@@ -354,8 +426,24 @@ public class ActionServlet extends HttpServlet {
 				session1.close();
 			}*/
 
-		}
-
-	}
-
+		
+public String makeToken(User user){  //checkException
+         //  7346734837483  834u938493493849384  43434384
+         String token = user.getName()+""+user.getPassword();
+         //数据指纹   128位长   16个字节  md5
+         try {
+             MessageDigest md = MessageDigest.getInstance("md5");
+             byte md5[] =  md.digest(token.getBytes());
+             //base64编码--任意二进制编码明文字符   adfsdfsdfsf
+             BASE64Encoder encoder = new BASE64Encoder();
+             return encoder.encode(md5);
+         } catch (NoSuchAlgorithmException e) {
+             throw new RuntimeException(e);
+         }
+         
 }
+}
+     
+	
+
+

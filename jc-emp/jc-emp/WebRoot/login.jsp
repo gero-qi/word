@@ -16,13 +16,13 @@ contentType="text/html;charset=utf-8" %>
 				<div id="content">
 					<p id="whereami"></p>
 					<h1>欢迎</h1>
-			<form action="login.do" method="post">
+			<form action="login.do" method="get">
 			  <fieldset>
 				<legend>登录</legend>
 					用户名:<input name="name"/>
 					<span style="color: red";>${str_error}</span><br>
 				          密&nbsp;&nbsp;&nbsp;码:<input name="password" type="password"/><br>
-					验证码:<input name="number"/>
+					验证码:<input name="numberCheck"/>
 			 		<span style="color:red;">${number_error}</span>
 					<img src="check" border="2px"
 						 onclick="this.src='check?'+Math.random();" class="s1"/><br/>

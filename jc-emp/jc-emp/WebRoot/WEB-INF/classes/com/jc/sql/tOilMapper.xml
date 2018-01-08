@@ -7,9 +7,13 @@
  		select * from t_oil
  	</select>
  	
- 	<delete id="delete" parameterType="string">
- 		delete from t_oil where id=#{id}
+ 	<delete id="delete" parameterType="int">
+ 		delete from t_oil where id=#{id} 
+ 		
  	</delete>
+ 	<update id="updateID">
+ 		update t_oil set id=id-1 where id>#{id}
+ 	</update>
  	
  	<select id="findByName" parameterType="string" resultType="com.jc.entity.tOil">
  		select * from t_oil where oilname like concat(concat('%',#{oilname}),'%') 
@@ -55,7 +59,8 @@
  <select id="findRows" resultType="int">
  		select count(*) from t_oil
  </select>
-	 <select id="findAll" resultType="int">
- 		select * from t_oil
+ <select id="findUserPasswordByName" parameterType="String" resultType="com.jc.dao.User">
+ 		select * from user where name=#{name}
  </select>
+ 
  </mapper>

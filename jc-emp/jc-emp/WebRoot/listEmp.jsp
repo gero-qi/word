@@ -34,6 +34,7 @@
 		});
 	}
  </script>
+</style>
 <html>
 	<head>
 		<title>我国成品油管网数据库</title>
@@ -55,28 +56,26 @@
 					<!-- 定位作用 -->
 					</p>
 			 	<h1 style="color:red;">${search_error}</h1>
-					<h1>
-						员工列表
-					</h1>
-					<form action="search.do" method="post" style="float:left;">
-						<input name="name" placeholder="这里输入管线名称……"/>
-						<button>搜索</button>
-					</form>
-					<form action="search.do" method="post" style="float:left;">
-						<input name="company" placeholder="这里输入总公司……"/>
-						<button>搜索</button>
-					</form>
-					<form action="search.do" method="post" style="float:left;">
-						<input name="provinces" placeholder="这里输入途径省市……"/>
-						<button>搜索</button>
-					</form>
+					<div>${userName}已登录</div><div onclick="location='zhuxiao.do'">注销登录</div><div>线路管理</div><div>人员管理</div><div>个人资料</div>
 					
-					<form action="count.do" method="post" style="margin-right:1000px;">
+						<input name="name" placeholder="这里输入管线名称……"/>
+						<button onclick="location='search.do'">搜索</button>
+					 
+					 
+						<input name="company" placeholder="这里输入总公司……"/>
+						<button onclick="location='search.do'">搜索</button>
+			 
+					 
+						<input name="provinces" placeholder="这里输入途径省市……"/>
+						<button onclick="location='search.do'">搜索</button>
+					 
+					
+					 
 						<input type="hidden" id="countSize" name="countSize" value="">
 						<input name="count1" placeholder="选择需要计算运力的管线……" value="${sizeCount }"/>
-						<button>计算运力</button>
-					</form>
-				
+						<button onclick="location='search.do'">计算运力</button>
+					
+					<hr>
 					<table class="table">
 						<tr class="table_header">
 							<td>
@@ -195,8 +194,14 @@
                		 
                		  
      				<c:forEach items="${sessionScope.pagess }" var="m" varStatus="s" >
-     				 <td ><a style="background: black" href="list1.do?num=${m.value}">${m.key }</a></td> 
-               		 <>
+     				<c:choose>
+     				<c:when test="${m.key==page}">
+                  			<td ><a style="margin: 10px" href="list1.do?num=${m.value}">${m.key}</a></td>
+                	</c:when>
+     				<c:otherwise>
+               		<td ><a  href="list1.do?num=${m.value}">${m.key}</a></td> 
+               		</c:otherwise>
+               		</c:choose>
                		</c:forEach> 
                		
                		 
