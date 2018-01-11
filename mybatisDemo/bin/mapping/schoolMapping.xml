@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.schoolMapping">
+ <select id="getClass" parameterType="int"	resultMap="ResultMap">
+
+select c.*,s.*,t.id t_id,t.name t_name from class c ,student s,teacher t where c.id=#{id} and c.teacher_id=t.id and c.id=s.class_id
+</select>
+<resultMap type="school.Classes" id="ResultMap">
+	<id property ="id" column="id"/>
+	<result property ="name" column="name"/>
+ 	<association property="teacher" column="t_id" javaType="school.Teacher">
+		<id property="id" column="t_id"/>
+		<result property="name" column="t_name"/>
+	</association>
+
+ 	<collection property="students" ofType="school.Student">
+		<id property="id" column="s_id"/>
+		<result property="name" column="s_name"/>
+	</collection>  
+	</resultMap>  
+
+<select id="getClass1" parameterType="int" resultMap="ResultMap1">
+select * from class where id=#{id}
+</select>
+<resultMap type="school.Classes" id="ResultMap1">
+	<id property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="teacher_id" column="teacher_id"/>
+	<association property="teacher" column="teacher_id" select="getTeacher1"/>
+	<collection property="students" ofType="school.Student"  column="id" select="getStudnet1"></collection>
+</resultMap>
+<select id="getTeacher1" parameterType="int" resultType="school.Teacher">
+select * from teacher  where id=#{id}
+</select>
+<select id="getStudnet1" parameterType="int" resultType="school.Student">
+select s_id id ,s_name name ,class_id from student where class_id=#{id}
+</select>
+
+<!-- <select id="getSexCount" parameterMap="getSexCountMap" statementType="CALLABLE">
+		CALL db_toil.ges_user_count(?,?);
+</select>
+<parameterMap type="java.util.map" id="getSexCountMap">
+	<parameter property="sexid" mode="IN" jdbcType="INTEGER"/>
+	<parameter property="usercount" mode="OUT" jdbcType="INTEGER"/> 
+	
+</parameterMap> -->
+
+ 
+</mapper>

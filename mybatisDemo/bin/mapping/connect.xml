@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapping.connect"	>
+<select id="getUser" resultMap="UserResultMap">
+	select * from user a,depart b where a.departId=b.departId
+</select>
+<resultMap type="domain.User" id="UserResultMap">
+	<id property="id" column="id"/>
+	<result property="name" column="name"/>
+	<association property="depart" javaType="domain.Depart">
+	<id property="departId" column="departId"/>
+	<result property="departName" column="departName"/>
+	</association>
+</resultMap>  
+
+ <select id="getUser1" parameterType="int" resultMap="UserResultMap1">
+select * from user where id=#{id}
+</select>
+
+<resultMap type="domain.User" id="UserResultMap1">
+<id property="id" column="id"/>
+<result property="name" column="name"/>
+<association property="depart" column="departId" select="getDepart"/>
+</resultMap>
+
+<select id="getDepart" parameterType="int" resultType="domain.Depart">
+select * from depart where departId=#{departId}
+</select> 
+
+</mapper>
+	
+	
+	
+
+

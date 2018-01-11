@@ -1,23 +1,38 @@
 package test;
 
-import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+
+import school.Classes;
 
 import domain.User;
 
 public class Test1 {
-public static void main (String[] args){
-	
-	InputStream is = Test1.class.getClassLoader().getResourceAsStream("conf.xml");
-	
-	SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
-	System.out.println("111");
-	SqlSession session = sessionFactory.openSession();
-	int i=1;
-	User user= session.selectOne("getUser",i);
-	System.out.println(user);
-}
+/* @Test
+ public void testGetUser(){
+	 SqlSession  session = MyBatisUtil.getSession();
+	 String statement = "mapping.connect.getUser";
+	 List<User> user = session.selectList(statement);
+	 session.close();
+	 System.out.println(user.get(0));
+ }
+ 
+  @Test
+ public void testGetUser1(){
+	 SqlSession  session = MyBatisUtil.getSession();
+	 String statement = "mapping.connect.getUser1";
+	 List<User> user = session.selectList(statement,1);
+	 session.close();
+	 System.out.println(user.get(0));
+ } */
+  @Test
+  public void testClass(){
+	  SqlSession session = MyBatisUtil.getSession();
+	  String statement = "mapping.schoolMapping.getClass1";
+	  Classes classes = session.selectOne(statement,2);
+	  session.close();
+	  System.out.println(classes);
+  }
 }

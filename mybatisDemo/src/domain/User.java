@@ -4,10 +4,12 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
+	private int id;
 	private int level;
 	private int departId;
 	private int responID;
-	
+	private Depart depart;
+	private Responsity resp;
 	public void setDepartId(int departId){
 		this.departId=departId;
 	}
@@ -44,6 +46,33 @@ public class User {
 	}
 	public void setResponID(int responID) {
 		this.responID = responID;
+	}
+	public Depart getDepart() {
+		return depart;
+	}
+	public void setDepart(Depart depart) {
+		this.depart = depart;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+ 
+ 
+	public Responsity getResp() {
+		return resp;
+	}
+	@Override
+	public String toString() {
+		return "User [getDepartId()=" + getDepartId() + ", getName()="
+				+ getName() + ", getPassword()=" + getPassword()
+				+ ", getDepart()=" + getDepart() + ", getResp()=" + getResp()
+				+ "]";
+	}
+	public void setResp(Responsity resp) {
+		this.resp = resp;
 	}
 
 }
