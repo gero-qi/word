@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+  	<tlib-version>1.1</tlib-version>
+  	<short-name>c1</short-name>    <!-- 自定义的prefix(前缀) -->
+  	<uri>http://www.tarena.com.cn/tag</uri>   <!-- 自定义的URI -->
+    <tag>
+    	<!-- 指定标签名 -->
+    	<name>date</name>
+    	<!-- 指定标签类的全路径 -->
+    	<tag-class>com.jc.tag.DateTag</tag-class>
+    	<body-content>empty</body-content>
+    	<attribute>
+        	<name>pattern</name>
+        	<!-- true表示必选 -->
+        	<required>true</required>
+        	<!-- true表示可以动态赋值(可以
+        	通过el表达式来赋值)。 -->
+        	<rtexprvalue>true</rtexprvalue>
+    	</attribute>
+  	</tag>
+</taglib>

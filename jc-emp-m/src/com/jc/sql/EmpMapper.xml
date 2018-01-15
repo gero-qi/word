@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.jc.dao.EmpDao">
+ 	<select id="findAll" resultType="com.jc.entity.Emp">
+ 		select * from emp
+ 	</select>
+ 	<select id="findByName" parameterType="string" resultType="com.jc.entity.Emp">
+ 		select * from emp where name=#{name}
+ 	</select>
+ 	<delete id="delete" parameterType="string">
+ 		delete from emp where name=#{name}
+ 	</delete>
+ 	<insert id="save" parameterType="com.jc.entity.Emp">
+ 		insert into emp (name,password,age,salary,sex,birth,nation,
+ 		nativePlace,birthPlace,job,college,academic,graduationDate,tel,fax,mail)
+ 		values
+ 		(#{name},#{password},#{age},#{salary},#{sex},#{birth},#{nation},
+ 		#{nativePlace},#{birthPlace},#{job},#{college},#{academic},#{graduationDate},
+ 		#{tel},#{fax},#{mail})
+ 	</insert>
+ 	<update id="update" parameterType="com.jc.entity.Emp">
+ 		update emp set 
+ 		 password=#{password},age=#{age},salary=#{salary},sex=#{sex},birth=#{birth},nation=#{nation},
+ 		 nativePlace=#{nativePlace},birthPlace=#{birthPlace},job=#{job},college=#{college},
+ 		 academic=#{academic},graduationDate=#{graduationDate},tel=#{tel},fax=#{fax},mail=#{mail}
+ 		where name=#{name}
+ 	</update>
+ 	<select id="findPage" resultType="com.jc.entity.Emp" parameterType="int">
+ 		select * from emp limit #{num},5
+ 	</select>
+ 	<select id="findRows" resultType="List">
+ 		select count(*) from emp 
+ 	</select>
+ </mapper>
