@@ -24,7 +24,7 @@
 				<div id="content">
 					<p id="whereami">
 					</p>
-					<h1 style="color:red;">${serach_error}</h1>
+					<h1 style="color:red;">${search_error}</h1>
 					<h1>
 						员工列表
 					</h1>
@@ -32,7 +32,9 @@
 				<form action="search.do" method="post">
 						<input name="name" />
 						<button>搜索</button>
+						<input type="button" onclick="location='listEmp.do'" value="返回" >
 				</form>
+				
 			 		
 					<table class="table">
 						<tr class="table_header">
@@ -164,20 +166,22 @@
                 		</c:otherwise>
                		</c:choose>
                		
+               		<%-- <c:forEach items="${page}" var="m" varStatus="s">
                		
-<%--                		<c:forEach var="m" items="${page }" varStatus="status"  >
-     				<c:choose>
-     				<c:when test="${m==((num-1))/5+1)}">
-                  			<td ><a style="margin: 10px" href="list1.do?num=${num}">m</a></td>
-                	</c:when>
-     				<c:otherwise>
-               		<td ><a  href="list1.do?num=${num }">m</a></td> 
-               		</c:otherwise>
-               		</c:choose>  
-               		m
-               		</c:forEach>  --%>
+               		</c:forEach> --%>
+               		
+					<c:forEach begin="1" end="${pages }" var="m" varStatus="s">
+               			<c:choose>
+               				<c:when test="${page==m}" >
+               					<a href="list1.do?num=${(m-1)*5}" style="font-size: 20px">${m }</a>
+               				</c:when>
+               				<c:otherwise>
+               					<a href="list1.do?num=${(m-1)*5}">${m }</a>
+               				</c:otherwise>
+               			</c:choose>
+               		</c:forEach>
                		  
-                    <a style="font-size:15px">第${page}页</a>
+                    
                     <a href="list1.do?num=${num+5}">下一页</a>
                 </div>
 					<p>

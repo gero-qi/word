@@ -25,6 +25,8 @@ public class EmpServiceImpl implements EmpService{
 	@Resource
 	private EmpDao empDao;
 	int page=0;
+	int pages=0;
+	 
 	//登录
 	public NoteResult checkLogin(String name, String pwd,HttpServletRequest request) {
 		NoteResult result=new NoteResult();
@@ -57,26 +59,24 @@ public class EmpServiceImpl implements EmpService{
 		empDao.delete(name);
 		response.sendRedirect("listEmp.do");
 	}
-
-	@Test
-	public void findRows(){
-		int i=0;
-		i=(Integer) empDao.findRows().get(0);
-		System.out.println(i);
-		 
-	}
+@Test
+ 	public int findRows(){
+		int r=empDao.findRows();
+		return r;
+	} 
 	//查询所有  员工表
 	public void toFindAll(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int num=0;
 		//页数
-		page=(num-1)/5+1;
+		pages=(findRows()-1)/5+1;
+		int page=num/5+1;
 		try{
 			List<Emp> emp=empDao.findPage(num);
 			//绑定数据
 			request.setAttribute("emp",emp);
 			request.setAttribute("num",num);
 			request.setAttribute("page",page);
-			System.out.println(page);
+			request.setAttribute("pages",pages);
 			//转发
 			request.getRequestDispatcher("listEmp.jsp").forward(request, response);
 		}catch(Exception e){
@@ -87,9 +87,12 @@ public class EmpServiceImpl implements EmpService{
 	//分页
 	public void toFindPage(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		//从listEmp中获取num 
+		pages=(findRows()-1)/5+1;
 		int num=Integer.parseInt(request.getParameter("num"));
-		int page=(num-1)/5+1;
+		int page=num/5+1;
+		System.out.println(pages+""+page);
 		request.setAttribute("page",page);
+		request.setAttribute("pages",pages);
 		try{
 			List<Emp> emp=empDao.findPage(num);
 			if(!emp.isEmpty()){//数据非空

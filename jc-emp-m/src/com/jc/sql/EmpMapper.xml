@@ -29,7 +29,7 @@
  	<select id="findPage" resultType="com.jc.entity.Emp" parameterType="int">
  		select * from emp limit #{num},5
  	</select>
- 	<select id="findRows" resultType="List">
+ 	<select id="findRows" resultType="int">
  		select count(*) from emp 
  	</select>
  </mapper>

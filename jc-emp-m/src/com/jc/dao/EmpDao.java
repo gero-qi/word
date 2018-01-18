@@ -11,6 +11,6 @@ public interface EmpDao {
 	public Emp findByName(String name);
 	public void update(Emp emp);
 	public List<Emp> findPage(int num);
-	public List findRows();
+	int findRows();
 
 }
