@@ -56,18 +56,27 @@
 					<!-- 定位作用 -->
 					</p>
 			 	<h1 style="color:red;">${search_error}</h1>
-					<div>${userName}已登录</div><div onclick="location='zhuxiao.do'">注销登录</div><div>线路管理</div><div>人员管理</div><div>个人资料</div>
+					<div>${sessionScope.user.name}已登录</div><div onclick="location='zhuxiao.do'">注销登录</div><div>线路管理</div>
+					<c:choose>
+					<c:when test="${sessionScope.user.level>2}">
+					<div id="hr" onclick="location='hr.do'"> 人员管理</div>
+					</c:when>
+					</c:choose>
 					
-						<input name="name" placeholder="这里输入管线名称……"/>
-						<button onclick="location='search.do'">搜索</button>
+					
+					
+					<div>个人资料</div>
+					
+						<input id="names" placeholder="这里输入管线名称……"/>
+						<button onclick="location='search.do?name='+$('#names').val()">搜索</button>
 					 
 					 
-						<input name="company" placeholder="这里输入总公司……"/>
-						<button onclick="location='search.do'">搜索</button>
+						<input id="company" placeholder="这里输入总公司……"/>
+						<button onclick="location='search.do?company='+$('#company').val()">搜索</button>
 			 
 					 
-						<input name="provinces" placeholder="这里输入途径省市……"/>
-						<button onclick="location='search.do'">搜索</button>
+						<input id="provinces" placeholder="这里输入途径省市……"/>
+						<button onclick="location='search.do?provinces='+$('#provinces').val()">搜索</button>
 					 
 					
 					 
@@ -212,7 +221,7 @@
                 
 					<p>
 						<input type="button" class="button" value="添加员工"
-							onclick="location='addEmp.jsp'" />
+							onclick="location='addEmp.jsp'"/>
 					</p>
 				</div>
 			</div>

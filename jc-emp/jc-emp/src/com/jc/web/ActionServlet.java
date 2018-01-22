@@ -72,7 +72,6 @@ public class ActionServlet extends HttpServlet {
 			String name="";
 			String password="";
 			String numberCheck="";
-			 
 			name=(String) request.getParameter("name");
 			password=(String) request.getParameter("password");
 			numberCheck=(String) request.getParameter("numberCheck");
@@ -85,7 +84,6 @@ public class ActionServlet extends HttpServlet {
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 					return;
 				}
-				
 			try{
 				 
 				User user = session1.selectOne("findUserPasswordByName",name);
@@ -94,16 +92,16 @@ public class ActionServlet extends HttpServlet {
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 					return;
 				}
-				if(!password.equals(user.getName())){
+				if(!password.equals(user.getPassword())){
 					request.setAttribute("str_error", "用户名错误");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 					return;
-				}
-				session.setAttribute("userName", name);
-				
+				}	
 				String sign = makeToken(user);
-				 
+				session.setAttribute("user", user);
+				
 				session.setAttribute("sign",sign);
+				 
 				response.sendRedirect("list.do");
 				return;
 			}catch(Exception e){
@@ -115,6 +113,7 @@ public class ActionServlet extends HttpServlet {
 		
 		
 			SqlSession session2 = MyBatisUtil.getSqlSession();
+			System.out.println(session.getAttribute("sign"));
 			if((session.getAttribute("sign")==null)||((String) session.getAttribute("sign")).length()<=0){
 				 
 				response.getWriter().write("<font color='green' size='25'>购买成功 5秒之后发生跳转到登录页面....</font>");
@@ -123,9 +122,15 @@ public class ActionServlet extends HttpServlet {
 			}else{
 				try{
 					
-					String name=(String) session.getAttribute("userName");
-					System.out.println(name+"验证");
-					User user = session1.selectOne("findUserPasswordByName",name);
+					User user1=(User) session.getAttribute("user");
+					if(user1==null){
+						System.out.println( "验证");
+						response.getWriter().write("<font color='green' size='25'>购买成功 5秒之后发生跳转到登录页面....</font>");
+						response.setHeader("Refresh", "2;URL="+request.getContextPath()+"/login.jsp");
+						return;
+					}
+					System.out.println(user1.getName()+"验证");
+					User user = session1.selectOne("findUserPasswordByName",user1.getName());
 					String signcheck = makeToken(user);					
 					if(!session.getAttribute("sign").equals(signcheck)){
 						response.getWriter().write("<font color='green' size='25'>购买成功 5秒之后发生跳转到登录页面....</font>");
@@ -263,22 +268,30 @@ public class ActionServlet extends HttpServlet {
 		}
 		//搜索
 		else if("search".equals(action)){
-			String oilname=request.getParameter("name");
-			String company=request.getParameter("company");
-			String provinces=request.getParameter("provinces");
+			System.out.println("++++++++");
+			List<tOil> emp = null;
+/*			String oilname=new String(request.getParameter("name").getBytes("iso-8859-1"),"utf-8");*/
+/*			String company=new String(request.getParameter("company").getBytes("iso-8859-1"),"utf-8");*/
+/*			String provinces=new String(request.getParameter("provinces").getBytes("iso-8859-1"),"utf-8");*/
+/*			System.out.println(oilname);
 			List<tOil> emp = null;
 			if(oilname!=""&&oilname!=null){
+				
 				emp =session1.selectList("findByName",oilname);
-			}
-			if(company!=""&&company!=null){
+				System.out.println(emp+"-------------");
+			}*/
+/*			if(company!=""&&company!=null){
 				emp =session1.selectList("findByCompany",company);
 			}
 			if(provinces!=""&&provinces!=null){
 				emp =session1.selectList("findByProvinces",provinces);
-			}
+			}*/
 			
-			try{//搜索的人不在数据库中
+/*			try{//搜索的人不在数据库中
+				String oilname=new String(request.getParameter("name").getBytes("iso-8859-1"),"utf-8");
+				emp =session1.selectList("findByName",oilname);
 				if(emp==null){
+					
 					request.setAttribute("search_error","非常抱歉，您要找的人不存在！");
 					request.getRequestDispatcher("listEmp.jsp").forward(request, response);
 				}else{
@@ -289,8 +302,18 @@ public class ActionServlet extends HttpServlet {
 				e.printStackTrace();
 				throw new ServletException(e);
 			}finally{
+				String company=new String(request.getParameter("company").getBytes("iso-8859-1"),"utf-8");
+				emp =session1.selectList("findByCompany",company);
+				request.setAttribute("emp",emp);
+				request.getRequestDispatcher("listSearch.jsp").forward(request, response);
 				session1.close();
-			}
+			}*/
+			try{}
+			
+			
+			
+			
+			
 		}
 		//计算运力
 		else if("count".equals(action)){
@@ -404,6 +427,22 @@ public class ActionServlet extends HttpServlet {
 		session.removeAttribute("sign");
 		response.sendRedirect("login.jsp");
 	}
+	
+	else if("hr".equals(action)){
+		try{
+			
+			List<Object>   resultMapList = session1.selectList("findAllUser");
+			System.out.println("111");
+			request.setAttribute("resultMapList",resultMapList);
+			request.getRequestDispatcher("hr.jsp").forward(request, response);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			session1.close();
+		}
+		
+	}
+		
 	}
 
 				// 获取输入的用户名和密码

@@ -1,6 +1,7 @@
 package com.jc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.jc.entity.tOil;
 
@@ -32,4 +33,6 @@ public interface tOilDao {
 	 List<User> findUserPasswordByName(String name);
 	 
 	 void updateID(int id);
+	 
+	 List<Object> findAllUser();
 }
