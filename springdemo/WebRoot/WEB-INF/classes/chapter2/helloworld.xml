@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:context="http://www.springframework.org/schema/context" 
+xsi:schemaLocation="  
+http://www.springframework.org/schema/beans       
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+http://www.springframework.org/schema/context                
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+<bean id="HelloImpl" class="cn.javass.spring.chapter2.helloword.HelloImpl">
+
+<constructor-arg name="h" value="hellow3"> </constructor-arg>
+	<constructor-arg name="i" value="3"> </constructor-arg>
+
+</bean>
+<!-- <bean name="bean1;alias11,alias12" class="cn.javass.spring.chapter2.helloword.HelloImpl" ></bean> -->
+<!--通过索引  -->
+<!-- <bean id="helloImpl1" class="cn.javass.spring.chapter2.helloword.HelloImpl">
+	<constructor-arg index="0" value="hellow1"> </constructor-arg>
+	<constructor-arg index="1" value="1"> </constructor-arg>
+</bean>
+通过类型 
+<bean id="helloImpl2" class="cn.javass.spring.chapter2.helloword.HelloImpl">
+	<constructor-arg type="java.lang.String" value="hellow2"> </constructor-arg>
+	<constructor-arg type="int" value="2"> </constructor-arg>
+</bean>
+
+通过构造器参数名称 
+<bean id="helloImpl3" class="cn.javass.spring.chapter2.helloword.HelloImpl">
+	<constructor-arg name="h" value="hellow3"> </constructor-arg>
+	<constructor-arg name="i" value="3"> </constructor-arg>
+</bean> -->
+
+
+<!-- <bean id="helloSet" class="cn.javass.spring.chapter2.helloword.HelloSet">
+	<property name="message" value="helloSet">
+	</property>
+	<property name="index">
+	<value>1</value>
+	</property>
+</bean> -->
+
+<!--  
+<bean id="bean2" class="java.lang.String">  
+    <constructor-arg index="0" value="test"/>  
+</bean>  
+
+<bean id="idrefbean" class="cn.javass.spring.chapter2.helloword.IdRefBean">
+	<property name="id"><idref bean="value2"/></property>
+</bean> -->
+
+<!-- <bean id="listBeans" class="cn.javass.spring.chapter2.HelloCollection">
+<property name="values">
+	<list>
+		<value>1</value>
+		<value>2</value>
+		<value>3</value>
+	</list>
+
+</property>
+
+</bean> -->
+
+
+<bean id="helloApi" class="cn.javass.spring.chapter2.helloword.HelloImpl"/>
+<bean id="bean1" class="cn.javass.spring.chapter2.helloword.HelloApiDecorator">
+<constructor-arg index="0" ref="helloApi"></constructor-arg>
+</bean>
+<bean id="bean2" class="cn.javass.spring.chapter2.helloword.HelloApiDecorator" >
+
+<property name="helloApi"><ref bean="helloApi"/></property>
+</bean>
+
+</beans>
