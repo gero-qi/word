@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+<!-- 常量 -->
+<!--开发者模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+<!--标签主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+<!-- 公共项 -->
+	<package name="common" namespace="/" extends="struts-default">
+	<interceptors>
+		<interceptor name="loginInterceptor" class="com.interceptors.LoginInterceptor"></interceptor>
+		<interceptor-stack name="loginStack">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="loginInterceptor" >
+				<param name="excludeMethods">login</param>		
+			</interceptor-ref>
+		</interceptor-stack>
+ 	</interceptors>
+	<action name="uiAction_*_*" class="com.opensymphony.xwork2.ActionSupport" >
+	 	<result name="success">/WEB-INF/pages/{1}/{2}.jsp</result>
+	 </action>
+	
+	</package>
+	 
+	
+	
+	<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+	
+	<global-result>
+		<result name="login" >/WEB-INF/pages/login.jsp</result>
+	</global-result>
+	 
+<!-- 加载其他配置文件  -->	
+ <include file="struts/struts-staff.xml"></include>
+
+ 
+ 
+ 
+</struts>

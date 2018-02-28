@@ -1,0 +1,50 @@
+package www.geshiqi.com.ServletDemo2;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletDemo6_6 extends HttpServlet {
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		test1(request,response);
+		test2(request,response);
+	}
+
+	private void test2(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ClassLoader load = this.getClass().getClassLoader();
+		InputStream in = load.getResourceAsStream("db1.properties");
+		Properties pop = new Properties();
+		pop.load(in);
+		String driver = pop.getProperty("driver");
+		response.getWriter().print(driver);
+	}
+
+	private void test1(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ServletContext context = this.getServletContext();
+		String path = context.getRealPath("/db1.properties");
+		InputStream in = new FileInputStream(path);
+		OutputStream out = response.getOutputStream();
+		Properties pop = new Properties();
+		pop.load(in);
+		String driver = pop.getProperty("driver");
+		out.write(driver.getBytes());
+		
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+}

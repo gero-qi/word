@@ -1,0 +1,30 @@
+package com.staff.serviceImp;
+
+import Utils.GetUtills;
+
+import com.staff.dao.StaffDao;
+ 
+import com.staff.service.StaffService;
+
+import domain.CrmStaff;
+
+public class StaffServiceImp implements StaffService {
+	private StaffDao staffDao;
+	
+	@Override
+	public CrmStaff logins(CrmStaff staff) {
+		System.out.println(staff.getLoginPwd()+"beforgetMd5");
+		String loginPwdMd5=GetUtills.getMD5Value(staff.getLoginPwd());
+		 System.out.println(loginPwdMd5);
+		return staffDao.find(staff.getLoginName(),loginPwdMd5);
+	}
+	public StaffDao getStaffDao() {
+		return staffDao;
+	}
+	public void setStaffDao(StaffDao staffDao) {
+		this.staffDao = staffDao;
+	}
+ 
+
+
+}

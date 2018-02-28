@@ -7,9 +7,17 @@
 
  
 	<package name="struts-staff" namespace="/" extends="common">
-		<action name="staffAction_*" class="" method=""></action>
-	
-	
+		<action name="staffAction_*" class="com.staff.web.action.StaffAction" method="{1}">
+			<result name="success" type="redirectAction">staffAction_home</result>
+			<result name="home">/WEB-INF/pages/frame.jsp</result>
+			<result name="showStaff">/WEB-INF/pages/staff/listStaff.jsp</result>
+			<result name="editjsp" >/WEB-INF/pages/staff/editStaff.jsp</result>
+			<result name="addjsp" >/WEB-INF/pages/staff/addStaff.jsp</result>
+			<result name="afterAdd" type="redirectAction">staffAction_findAllStaff</result>
+			<result name="findAllStaff" type="redirectAction">staffAction_findAllStaff</result>
+		</action>
+		
+		 
 	
 	</package>
 	

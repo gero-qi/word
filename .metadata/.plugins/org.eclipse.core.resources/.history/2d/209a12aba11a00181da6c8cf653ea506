@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+ 
+	<package name="struts-post" namespace="/" extends="common">
+ 		<action name="AjaxAction" class="com.staff.web.action.AjaxAction" method="changePost"></action>
+ 		<action name="postAction_*" class="com.staff.web.action.PostAction" method="{1}">
+ 		<result name="listPost" >/WEB-INF/pages/post/listPost.jsp</result>
+ 		</action>
+	</package>
+	
+	
+	
+	
+ 
+</struts> 

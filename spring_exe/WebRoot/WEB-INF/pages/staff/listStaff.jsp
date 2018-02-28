@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -24,9 +24,9 @@
    
     <td width="57%"align="right">
     	<%--高级查询 --%>
-		<a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
+		<a href="javascript:void(0)" onclick="document.forms[0].submit()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
     	<%--员工注入 --%>
-	  	<a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">
+	  	<a href="${pageContext.request.contextPath}/staffAction_addUI">
 	  		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
 	  	</a>
       
@@ -36,36 +36,22 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="${pageContext.request.contextPath}/staff/staffAction_findAll" method="post">
+<s:form id="conditionFormId" >
 	<table width="88%" border="0" style="margin: 20px;" >
 	  <tr>
-	    <td width="80px">部门：</td>
-	    <td width="200px">
-	    	
-	    	<select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
-			    <option value="">--请选择部门--</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
-			</select>
-
-	    </td>
+	    <td width="10%">所属部门：</td>
+	    <td width="20%">
+	   	<s:textfield name="crmDepartment" ></s:textfield>
+	    </td> 
 	    <td width="80px" >职务：</td>
 	    <td width="200px" >
-	    	
-	    	<select name="crmPost.postId" id="postSelectId">
-			    <option value="">--请选择职务--</option>
-			    <option value="2c9091c14c78e58b014c78e6b34a0003">总监</option>
-			    <option value="2c9091c14c78e58b014c78e6d4510004">讲师</option>
-			    <option value="2c9091c14c78e58b014c78e6f2340005">主管</option>
-			</select>
-
+	    <s:textfield name="crmPosts"></s:textfield>
 	    </td>
 	    <td width="80px">姓名：</td>
-	    <td width="200px" ><input type="text" name="staffName" size="12" /></td>
-	    <td ></td>
+	    <td width="200px" ><s:textfield name="staffName" size="12" /></td>
 	  </tr>
 	</table>
-</form>
+</s:form>
 
 
 <table border="0" cellspacing="0" cellpadding="0" style="margin-top:5px;">
@@ -83,29 +69,33 @@
     <td width="10%" align="center">职务</td>
     <td width="10%" align="center">编辑</td>
   </tr>
-  
-  <%-- 奇偶 行样式不一样的：tabtd1 、tabtd2--%>
-   <s:iterator value="#allStaff" status="vs">
-	  <tr class="<s:property value="#vs.even ? 'tabtd2' : 'tabtd1'" />"> 
-	    <td align="center"><s:property value="staffName" />  </td>
-	    <td align="center"><s:property value="gender" /></td>
-	    <td align="center"><s:date name="onDutyDate" format="yyyy-MM-dd" /></td>
-	    <td align="center"><s:property value="post.department.depName" /></td>
-	    <td align="center"><s:property value="post.postName" /></td>
-	  	<td width="7%" align="center">
-	  		<!-- 编辑前的查询操作 -->
-	  		<s:a namespace="/" action="staffAction_editUI">
-	  			<s:param name="staffId" value="staffId"></s:param>
-	  			<img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" />
-	  		</s:a>	
-	  	</td>
-	  </tr>
-   </s:iterator>
 
+    <s:iterator value="#allstaff" status="vs">
+     
+	  <tr class="<s:property value="'vs.even?' 'tabtd2':'tabtd1'"/>" >
+	    <td align="center"><s:property value="staffName"/></td>
+ 	    <td align="center"><s:property value="gender"/></td>
+	    <td align="center"><s:date name="onDutyDate" format="yyyy-MM-dd"/></td>
+	    <td align="center"><s:property value="crmPost.crmDepartment.depName"/></td>
+	    <td align="center"><s:property value="crmPost.postName"/></td>
+	  	<td width="7%" align="center">
+	  		<s:a namespace="/" action="staffAction_editUI">
+	  		<s:param name="staffId" value="staffId" ></s:param>
+	  		<img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" />
+	  		</s:a>
+	  		<s:a namespace="/" action="staffAction_deleteStaff">
+	  		<s:param name="staffId" value="staffId" ></s:param>
+	  		删除
+	  		</s:a>
+	  		
+	  	</td>
+	  	  
+	  </tr>
+	 </s:iterator>
 </table>
 
 
-<%-- 
+ 
 <table border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td align="right">
@@ -119,6 +109,6 @@
     </td>
   </tr>
 </table>
---%>
+ 
 </body>
 </html>

@@ -1,0 +1,41 @@
+package com.post;
+
+import java.util.List;
+
+import domain.CrmDepartment;
+import domain.CrmPost;
+
+public class PostServiceImp implements PostService {
+	private PostDao postdao;
+	
+	public void setPostdao(PostDao postdao) {
+		this.postdao = postdao;
+	}
+
+	@Override
+	public List<CrmPost> findAllPost() {
+		 
+		return this.postdao.findAll();
+	}
+
+	@Override
+	public List<CrmPost> findPostBydep(CrmDepartment dep ) {
+		 
+		return postdao.findAllByDep(dep );
+	}
+
+	@Override
+	public CrmPost findPostById(String postId) {
+		System.out.println("findPostById");
+		return postdao.findPostById(postId);
+	}
+
+	@Override
+	public void updateModel(CrmPost post) {
+		CrmPost crmpost = postdao.findPostById( post.getPostId());
+		crmpost.setCrmDepartment(post.getCrmDepartment());
+		crmpost.setPostName(post.getPostName());
+		System.out.println(crmpost.getPostId()+""+crmpost.getPostName());
+	}
+
+}

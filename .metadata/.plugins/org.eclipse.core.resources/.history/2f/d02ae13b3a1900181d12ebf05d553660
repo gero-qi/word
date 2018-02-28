@@ -1,0 +1,18 @@
+package Test;
+
+public class PerSonSchema {
+private String Id;
+private String name;
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public String getId(){
+	return Id;
+}
+public void setId(String Id){
+	this.Id=Id;
+}
+}

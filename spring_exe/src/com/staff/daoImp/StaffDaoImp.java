@@ -5,18 +5,52 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.staff.dao.StaffDao;
-import com.staff.domain.CrmStaff;
+
+import domain.CrmStaff;
+ 
 
 public class StaffDaoImp extends HibernateDaoSupport implements  StaffDao {
 
 	@Override
 	public CrmStaff find(String loginName, String loginPwd) {
-		// TODO Auto-generated method stub
-		List<CrmStaff> allStaff=this.getHibernateTemplate().find("from crm_staff where loginName=? and loginPwd=?",loginName,loginPwd);
+		 
+		List<CrmStaff> allStaff= this.getHibernateTemplate().find("from CrmStaff where loginName=? and loginPwd=?",loginName,loginPwd);
 		if(allStaff.size()==1){
 			return allStaff.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public List<CrmStaff> findAll() {
+		List<CrmStaff> listStaff= this.getHibernateTemplate().find("from CrmStaff");
+		return listStaff;
+	}
+
+	@Override
+	public CrmStaff findById(String staffId) {
+		System.out.println(staffId+"findById");
+		CrmStaff crmStaff=this.getHibernateTemplate().get(CrmStaff.class,staffId);
+		
+		return crmStaff;
+	}
+
+	@Override
+	public void addStaff(CrmStaff staff) {
+		this.getHibernateTemplate().save(staff);
+		
+	}
+
+	@Override
+	public void updateStaff(CrmStaff staff) {
+		this.getHibernateTemplate().update(staff);
+		
+	}
+
+	@Override
+	public void delete(CrmStaff staff) {
+		this.getHibernateTemplate().delete(staff);
+		
 	}
 
 

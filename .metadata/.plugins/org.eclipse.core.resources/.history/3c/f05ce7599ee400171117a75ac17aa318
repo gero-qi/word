@@ -1,0 +1,64 @@
+package www.geshiqi.com.servletDemo1;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletDemo1 extends HttpServlet {
+
+	/**
+	 * Constructor of the object.
+	 */
+	public ServletDemo1() {
+		super();
+	}
+
+
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
+
+	int i=1;
+	private ServletConfig config;
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		synchronized(this){
+			i++;
+		
+		try{
+			Thread.sleep(1000*4);
+		}catch (InterruptedException e){
+			e.printStackTrace();
+		}
+		int i=0;
+		Enumeration<String> e = config.getInitParameterNames();
+		while (e.hasMoreElements()){
+			String name = e.nextElement();
+			String value = config.getInitParameter(name);
+			response.getWriter().println(name+ "=" +value+i);
+			i++;
+		}
+	}
+
+	}
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+		
+	}
+
+
+	public void init(ServletConfig config) throws ServletException {
+		this.config = config;
+	}
+
+}

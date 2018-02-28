@@ -1,12 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="/struts-tags" prefix="s" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/Calendar.js"></script>
+<script type="text/javascript">function showPost(obj){
+	var depId = obj.value;
 
+	var depName = obj.name;
+
+	var xmlhttp=null;
+	if(window.XMLHttpRequest){
+		xmlhttp= new XMLHttpRequest();
+	}else if(window.ActiveXObject){
+		xmlhttp = new ActiveObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState == 4 && xmlhttp.status ==200 ){
+			var textData = xmlhttp.responseText;
+			var jsonData = eval("("+textData+")");
+			var postSelect = document.getElementById("postSelectId");
+			postSelect.innerHTML = "<option value=''>----请选择------</oprion>";
+			 
+			for(var i =0; i<jsonData.length;i++){
+				var postObj = jsonData[i];
+				var postId = postObj.postId;
+				var postName = postObj.postName;
+				postSelect.innerHTML +="<option value='"+postId+"'>"+postName+"</option>"; 
+			}
+		}
+	};
+	var url="${pageContext.request.contextPath}/AjaxAction?crmDepartment.depId="+depId+"&crmDepartment.depName="+depName;
+	xmlhttp.open("GET", url);
+	xmlhttp.send(null);
+}</script>
 </head>
 
 <body class="emp_body">
@@ -34,7 +64,7 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/staff/listStaff.jsp" method="post">
+<form action="${pageContext.request.contextPath}/staffAction_add" method="get">
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	 <tr>
 	    <td>登录名：</td>
@@ -53,18 +83,17 @@
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmPost.crmDepartment.depId"onchange="changePost(this)">
-			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
-			</select>
+	    	<s:select list="editDepartment"
+	    	listKey="depId" listValue="depName" 
+	    	headerKey="" headerValue="----请--选--择----" onchange="showPost(this)">
+	    </s:select>
 
 	    </td>
 	    <td width="8%">职务：</td>
 	    <td width="62%">
-	    	<select id="postSelectId" name="crmPost.postId">
-	    		<option>----请--选--择----</option>
-	    	</select>
+	    	 <s:select list="crmPost!=null?crmPost.crmDepartment.crmPosts:{}" name="crmPost.postId"
+	    	listKey="crmPost.postId" listValue="crmPost.postName"  
+	    	headerKey="" headerValue="----请--选--择----"  id="postSelectId" />
 	    </td>
 	  </tr>
 	   <tr>

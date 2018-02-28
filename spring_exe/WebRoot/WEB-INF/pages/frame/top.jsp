@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
 <HTML><HEAD>
 <meta http-equiv="Content-Language" content="zh-cn">
 <TITLE></TITLE>
@@ -30,9 +31,9 @@
 					</tr>
 					<tr>
 						<td width="150" height="35"><p align="right">
-							<font color="#FFFFFF">欢迎您：
-								${sessionScope.loginStaff.staffName} <b></b>
-							</font>
+							<font color="#FFFFFF">欢迎您： 
+								 ${sessionScope.loginStaff.staffName}
+							</font><a href="${pageContext.request.contextPath}/staffAction_remove.action">注销</a>
 						</td>
 					</tr>
 				</table>

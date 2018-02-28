@@ -1,0 +1,17 @@
+package Test;
+
+public class testDB {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PerSonSchema per = new PerSonSchema();
+		per.setId("2");
+		per.setName("wangzhenpeng");
+		PersonDB testdb = new PersonDB();
+		testdb.inset(per);
+	}
+
+}

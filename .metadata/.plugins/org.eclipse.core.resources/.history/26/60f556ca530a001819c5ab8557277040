@@ -1,0 +1,36 @@
+package com.itheima.d_aspect.a_xml;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+
+/**
+ * 鍒囬潰绫伙紝鍚湁澶氫釜閫氱煡
+ */
+public class MyAspect {
+	
+	public void myBefore(JoinPoint joinPoint){
+		System.out.println("鍓嶇疆閫氱煡 锛�" + joinPoint.getSignature().getName());
+	}
+	
+	public void myAfterReturning(JoinPoint joinPoint,Object ret){
+		System.out.println("鍚庣疆閫氱煡 锛�" + joinPoint.getSignature().getName() + " , -->" + ret);
+	}
+	
+	public Object myAround(ProceedingJoinPoint joinPoint) throws Throwable{
+		System.out.println("鍓�");
+		//鎵嬪姩鎵ц鐩爣鏂规硶
+		Object obj = joinPoint.proceed();
+		
+		System.out.println("鍚�");
+		return obj;
+	}
+	
+	public void myAfterThrowing(JoinPoint joinPoint,Throwable e){
+		System.out.println("鎶涘嚭寮傚父閫氱煡 锛�" + e.getMessage());
+	}
+	
+	public void myAfter(JoinPoint joinPoint){
+		System.out.println("鏈�粓閫氱煡");
+	}
+
+}

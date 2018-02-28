@@ -1,0 +1,27 @@
+package com.post;
+
+import java.util.List;
+
+import domain.CrmDepartment;
+import domain.CrmPost;
+
+public class PostServiceImp implements PostService {
+	private PostDao postdao;
+	
+	public void setPostdao(PostDao postdao) {
+		this.postdao = postdao;
+	}
+
+	@Override
+	public List<CrmPost> findAllPost() {
+		 
+		return this.postdao.findAll();
+	}
+
+	@Override
+	public List<CrmPost> findPostBydep(CrmDepartment dep ) {
+		 
+		return postdao.findAllByDep(dep );
+	}
+
+}

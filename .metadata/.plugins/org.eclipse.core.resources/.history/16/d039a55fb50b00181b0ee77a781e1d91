@@ -1,0 +1,43 @@
+package com.staff.web.action;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+ 
+import com.staff.service.StaffService;
+
+import domain.CrmPost;
+import domain.CrmStaff;
+
+public class StaffAction extends ActionSupport implements ModelDriven<CrmStaff> {
+	private CrmStaff staff = new CrmStaff();
+	@Override
+	public CrmStaff getModel() { 
+		return staff ;
+	}
+	private StaffService staffservice;
+	public StaffService getStaffservice() {
+		return staffservice;
+	}
+
+
+	public void setStaffservice(StaffService staffservice) {
+		this.staffservice = staffservice;
+	}
+ 
+	
+	public String login(){
+		 
+	 	CrmStaff   findedStaff= staffservice.login(staff);
+		 
+		if(findedStaff!=null){
+			ActionContext.getContext().getSession().put("loginStaff", findedStaff);
+			return "success";
+		}
+		  
+		this.addFieldError("", "用户名 密码出错");
+		return "login"; 
+		
+		
+	}
+}

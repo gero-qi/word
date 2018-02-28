@@ -1,0 +1,62 @@
+package Test;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.jdbc.PreparedStatement;
+
+public class PersonDB {
+	public Boolean showResult(int i){
+		if(i>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public void inset(PerSonSchema tpersonSchema){
+		Connection con = null;
+		PreparedStatement stmt=null;
+		ResultSet rs = null;
+		int count=0;
+		try {
+			con= DBUtils.getConnection();
+			String sql = "insert into person values (?,?)";
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			stmt.setString(1, tpersonSchema.getId());
+			stmt.setString(2, tpersonSchema.getName());
+			count = stmt.executeUpdate();
+			DBUtils.closeAll(rs, stmt, con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		showResult(count);
+	}
+	
+	public void  update(PerSonSchema  tpersonSchema){//修改
+		Connection con = null;
+		PreparedStatement stmt=null;
+		ResultSet rs = null;
+		int count=0;
+		
+		try {
+			con=DBUtils.getConnection();
+			String sql = "update person name=? where id=?";
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			stmt.setString(1, tpersonSchema.getName());
+			stmt.setString(2, tpersonSchema.getId());
+			count=stmt.executeUpdate();
+			DBUtils.closeAll(rs, stmt, con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
+	
+}

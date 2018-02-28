@@ -1,0 +1,54 @@
+package com.staff.web.action;
+
+
+
+import java.util.List;
+
+import com.department.DepartmentService;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.post.PostService;
+
+import domain.CrmDepartment;
+import domain.CrmPost;
+
+public class PostAction extends ActionSupport implements ModelDriven<CrmPost> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private CrmPost post;
+	@Override
+	public CrmPost getModel() {
+		// TODO Auto-generated method stub
+		return post;
+	}
+	private PostService postService;
+	public void setPostService(PostService postService){
+		 this.postService =postService;
+	}
+	
+	public DepartmentService depservice;
+	public void DepartmentService(DepartmentService depservice){
+		this.depservice = depservice;
+	}
+	
+	public String findAllPost(){
+		List<CrmPost> allpost = postService.findAllPost();
+		ActionContext.getContext().put("allpost", allpost);
+		return "listPost";
+	}
+	
+	public String posteditUI(){
+		System.out.println(post);
+		
+ 		CrmPost crmpost = postService.findPostById(post.getPostId());
+ 		System.out.println("posteditUI------");
+		ActionContext.getContext().put("crmpost", crmpost); 
+ 		List<CrmDepartment> alldep = depservice.findAllDep();
+		ActionContext.getContext().put("alldep", alldep); 
+		return "addOrEditPost";
+	}
+	
+}

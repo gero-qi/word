@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,9 +27,9 @@
 			<img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" />
 		</a>      
     	<%--编辑前：添加类别 --%>
-    	<s:a namespace="/" action="courseTypeAction_addOrEditUI">
+    	<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp">
 	       	<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
-    	</s:a>
+    	</a>
     </td>
     <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>
   </tr>
@@ -39,34 +38,26 @@
 
 <%--条件查询 start --%>
 
-<s:form namespace="/" action="courseTypeAction_findAll">
+<form action="${pageContext.request.contextPath}/coursetype/courseTypeAction_findAll.action" method="post">
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	  <tr>
 	    <td width="10%">课程类别：</td>
-	    <td><s:textfield name="courseName" size="30"></s:textfield></td>
+	    <td><input type="text" name="courseName" size="30" value="" /></td>
 	  </tr>
 	  <tr>
 	    <td >课程简介：</td>
-	    <td ><s:textfield name="remark" size="30" ></s:textfield></td>
+	    <td > <input type="text" name="remark" size="30" value="" /></td>
 	  </tr>
 	  <tr>  
 	    <td >总学时：</td>
-	    <td >
-	    	<s:textfield name="totalStart" size="12"></s:textfield>  
-	    	至  
-	    	<s:textfield name="totalEnd" size="12"></s:textfield>
-	    </td>
+	    <td ><input type="text" name="totalStart" size="12" value="" />  至  <input type="text" name="totalEnd" size="12" value="" /></td>
 	  </tr>
 	  <tr>
 	    <td>课程费用：</td>
-	    <td >
-	    	<s:textfield name="courseCostStart" size="12"></s:textfield> 
-	    	至 
-	    	<s:textfield name="courseCostEnd" size="12"></s:textfield> 
-	    </td>
+	    <td ><input type="text" name="lessonCostStart" size="12" value="" /> 至 <input type="text" name="lessonCostEnd" size="12" value="" /></td>
 	  </tr>
 	</table>
-</s:form>
+</form>
 
 <%--条件查询 end --%>
 
@@ -85,23 +76,28 @@
 	<td width="11%" align="center">编辑</td>
   </tr>
   <%--数据展示，单行：tabtd1；双行：tabtd2 --%>
-  <s:iterator value="#allCourseType" var="coursetype">
-   	  <tr class="tabtd1">
-	    <td align="center"><s:property value="#coursetype.courseName"/>  </td>
-	    <td align="center"><s:property value="#coursetype.remark"/> </td>
-	    <td align="center"><s:property value="#coursetype.total"/> </td>
-	    <td align="center"><s:property value="#coursetype.courseCost"/> </td>
+   <tr class="tabtd1">
+	    <td align="center">java基础 </td>
+	    <td align="center"> </td>
+	    <td align="center">1000</td>
+	    <td align="center">2000.0</td>
 	  	<td width="11%" align="center">
 	  		
-	  		<s:a namespace="/" action="courseTypeAction_addOrEditUI">
-	  			<s:param name="courseTypeId" value="courseTypeId"></s:param>
-		       	<img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" />
-	    	</s:a>
+	  		<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
 	  	</td>
 	  </tr>
-  </s:iterator>
   
-
+ 
+	  <tr class="tabtd2">
+	    <td align="center">java就业 </td>
+	    <td align="center"> </td>
+	    <td align="center">4000</td>
+	    <td align="center">18000.0</td>
+	  	<td width="11%" align="center">
+	  		
+	  		<a href="${pageContext.request.contextPath}/pages/coursetype/addOrEditCourse.jsp"><img src="${pageContext.request.contextPath}/images/button/modify.gif" class="img" /></a>
+	  	</td>
+	  </tr>
 
  
 </table>

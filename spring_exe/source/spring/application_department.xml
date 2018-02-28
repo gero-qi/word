@@ -15,8 +15,12 @@
        					   
 <!--        部门配置项		 -->		   
        					   
-
-
+<bean id="departmentDao" class="com.department.DepartmentDaoImp">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<bean id="departmentService" class="com.department.DepartmentServiceImp">
+	<property name="departdao" ref="departmentDao"></property>
+</bean>
 
 
 

@@ -1,0 +1,23 @@
+package Test;
+
+import java.sql.SQLException;
+
+public class testDB {
+
+	/**
+	 * @param args
+	 * @throws SQLException 
+	 */
+	public static void main(String[] args) throws SQLException {
+		// TODO Auto-generated method stub
+		
+/*		PerSonSchema per = new PerSonSchema();
+		per.setId("2");
+		per.setName("wangzhenpeng");
+		PersonDB testdb = new PersonDB();
+		testdb.inset(per);*/
+		
+		DBUtils.getConnection();
+	}
+
+}

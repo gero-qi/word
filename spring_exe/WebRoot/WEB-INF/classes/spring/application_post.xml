@@ -14,8 +14,13 @@
        					   http://www.springframework.org/schema/context/spring-context.xsd">
        					   
 <!--        职位		 -->		   
-       					   
-
+  <bean id="postdao" class="com.post.PostDaoImp">
+  	<property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>	   
+	
+	<bean id="postService" class="com.post.PostServiceImp">
+		<property name="postdao" ref="postdao"></property>
+	</bean>
 
 
 

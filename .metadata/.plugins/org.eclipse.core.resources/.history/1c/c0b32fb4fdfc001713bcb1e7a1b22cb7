@@ -1,0 +1,90 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+/* 	 function jsonStringif(){
+	 
+		var student = new Object();
+            student.name = "Lanny";
+            student.age = "25";
+            student.location = "China";
+ 
+            
+             var json = JSON.stringify(http://bj.nbot.admin.netease.com/records/27581908);
+        
+            alert(json);
+	 
+	 
+	 
+	 }
+	  */
+	  </script> 
+ <!--拉勾招聘数据-->
+ <!--  <script type="text/javascript">
+ http://www.lagou.com/join/listW3cplus?kd=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91
+   function success_jsonpCallback(data){
+    var html = '';
+    var pos = '';
+    html += '<ul>';
+    jQuery.each(data, function(k, v) {
+                 if(k<10){
+                  pos = '【' + v.city+ '】' + v.positionName + '('+ v.salary +') - '+v.companyName;
+      if(pos.length > 20){
+       pos = pos.substring(0,19)+'...';
+                     }
+                     html += '<li><a href="'+v.posiitonDetailUrl+'" target="_blank" title="【' + v.city+ '】' + v.positionName + '('+ v.salary +') - '+v.companyName+'">'+pos+'</a></li>';
+                 }
+    });
+    html += '</ul><div class="more-link"><a href="http://www.lagou.com/jobs/list_%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91" target="_blank">更多</a></div>';
+    jQuery('#lagouData').html(html);
+   } -->
+    <script type="text/javascript">
+   function success_jsonpCallback(data){
+    
+    
+    
+   alert(data);
+   }
+
+   function getLagouData() {
+    jQuery.ajax({
+     async:false,
+     url: "http://www.w3school.com.cn/example/xmle/books.xml",
+     type: "GET",
+     dataType: "jsonp",
+     jsonpCallback: 'success_jsonpCallback',
+     contentType: "application/jsonp; application/x-www-form-urlencoded",
+     success: function(data) {
+      success_jsonpCallback(data);
+     }
+    });
+   }
+   
+        </script>
+
+	 <div id="lagouData"></div>
+  </head>
+  
+  <body>
+    This is my JSP page. <br>
+    <input type="button" onclick="getLagouData()" value="test">
+  </body>
+</html>

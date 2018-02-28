@@ -1,0 +1,18 @@
+import java.util.Random;
+
+
+public class TestM {
+	public static int ra(int max,int min){
+        Random random = new Random();
+        int s = random.nextInt(max)%(max-min+1) + min;
+        return s;
+	}
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(ra(5,0)+","+ra(10,5)+","+ra(15,11)+","+ra(20,16)+","+ra(25,21)+","+ra(30,26)+","+ra(35,21)+"--"+ra(12,7)+","+ra(6,0));
+	}
+	}
+

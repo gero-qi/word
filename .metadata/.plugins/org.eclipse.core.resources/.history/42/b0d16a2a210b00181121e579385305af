@@ -1,0 +1,14 @@
+package com.staff.daoImp;
+
+import com.staff.dao.StaffDao;
+import com.staff.domain.CrmStaff;
+
+public class StaffDaoImp implements  StaffDao {
+
+	@Override
+	public CrmStaff find(String loginName, String loginPwd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

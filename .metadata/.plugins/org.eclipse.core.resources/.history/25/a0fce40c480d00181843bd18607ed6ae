@@ -1,0 +1,11 @@
+package com.post;
+
+import java.util.List;
+
+import domain.CrmPost;
+
+public interface PostDao {
+	public List<CrmPost> findAll();
+	
+	public List<CrmPost> findAllByDep(String departmengId);
+}

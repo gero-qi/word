@@ -1,0 +1,58 @@
+package www.geshiqi.com.servletDemo1;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.text.MessageFormat;
+import java.util.Properties;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ServletDemo6 extends HttpServlet {
+
+ 
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setHeader("content-type","text/html;charset=UTF-8");
+		try {
+			test1(response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 
+	}
+	private void test1(HttpServletResponse response) throws IOException{
+		ClassLoader loader = ServletDemo6.class.getClassLoader();
+		
+			InputStream inp = loader.getResourceAsStream("/WebRoot/WEB-INF/db1.properties");
+			Properties prop = new Properties();
+			prop.load(inp);
+			String driver = prop.getProperty("driver");
+		
+		
+
+		response.getWriter().println(driver);
+	}
+	
+	private void readPropCfgFile(HttpServletResponse response)throws Exception{
+		String path = this.getServletContext().getRealPath("/WEB-INF/classes/db/config/db1.properties");
+		InputStream in = new FileInputStream(path);
+		Properties prop = new Properties();
+		prop.load(in);
+		String driver = prop.getProperty("driver");
+		response.getWriter().println(driver);
+	}
+
+ 
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	 
+	}
+
+}

@@ -16,14 +16,14 @@
 <!--        公共配置项		 -->		   
     <!-- 公共配置项 -->
 	<!-- 1.1 加载properties文件 -->
-	<context:property-placeholder location="classpath:jdbcInfo.properties"/>
+	 
 	
 	<!-- 1.2 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driverClass}"></property>
-		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
-		<property name="user" value="${jdbc.user}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3305/ee19_crmdb"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="root"></property>
 	</bean>
 	
 	<!-- 2. 配置SessionFactory -->
@@ -36,7 +36,10 @@
 				<prop key="hibernate.format_sql">true</prop>
 			</props>
 		</property>
-		<property name="mappingLocations" value="classpath:com/*/domain/*.hbm.xml"></property>
+	 
+		<property name="mappingLocations" value="classpath:domain/*.hbm.xml"></property>
+
+		
 	</bean>
 	
 	<!-- 3.事务管理 -->
@@ -65,8 +68,9 @@
        					   
 	<!-- 4.1 导入其他spring配置 -->
 
-	 <import resource="spring/application_staff.xml"></import>
-
+	<import resource="spring/application_post.xml"/>
+	<import resource="spring/application_staff.xml"/>
+	<import resource="spring/application_department.xml"/>
 
 
 </beans>

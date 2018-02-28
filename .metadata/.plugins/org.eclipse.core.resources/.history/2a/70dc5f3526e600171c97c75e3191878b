@@ -1,0 +1,58 @@
+package www.geshiqi.com.servletDemo1;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.MessageFormat;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class RequestDemo2 extends HttpServlet {
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String userid = request.getParameter("userid");
+		String username = request.getParameter("username");
+		String userpass = request.getParameter("userpass");
+		String sex = request.getParameter("sex");
+		String dept = request.getParameter("dept");
+		String[] insts = request.getParameterValues("inst");
+		String note = request.getParameter("note");
+		String hiddenField = request.getParameter("hiddenField");
+		String instStr="";
+		//获取数组数据的机巧，可以避免insts数组weinull时引发的空指针异常错误：
+		for(int i=0; insts!=null && i< insts.length; i++){
+			if(i == insts.length-1){
+				instStr+=insts[i];
+			}else{
+				instStr+=insts[i]+",";
+				
+			}
+		}
+		String htmlStr = "<tr><td>填写的编号：</td><td>{0}</td></tr>" +
+				                             "<tr><td>填写的用户名：</td><td>{1}</td></tr>" +
+				                             "<tr><td>填写的密码：</td><td>{2}</td></tr>" +
+				                             "<tr><td>选中的性别：</td><td>{3}</td></tr>" +
+				                             "<tr><td>选中的部门：</td><td>{4}</td></tr>" +
+				                             "<tr><td>选中的兴趣：</td><td>{5}</td></tr>" +
+				                             "<tr><td>填写的说明：</td><td>{6}</td></tr>" +
+				                             "<tr><td>隐藏域的内容：</td><td>{7}</td></tr>" +
+				                         "</table>";
+		htmlStr = MessageFormat.format(htmlStr, userid,username,userpass,sex,dept,instStr,note,hiddenField);
+		response.setCharacterEncoding("UTF-8");
+		response.setHeader("content-type", "text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		OutputStream out = response.getOutputStream();
+		out.write(htmlStr.getBytes("UTF-8"));
+		
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request,response);
+	}
+
+}

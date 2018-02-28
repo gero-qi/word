@@ -1,0 +1,49 @@
+package com.classes.domain;
+
+import java.util.Date;
+
+import com.CourseType.domain.CrmCourseType;
+
+public class CrmClass {
+	/*
+	 * CREATE TABLE `crm_class` (
+	  `classId` varchar(50) NOT NULL PRIMARY KEY,
+	  `courseTypeId` varchar(255) DEFAULT NULL,
+	  
+	  `name` varchar(50) DEFAULT NULL,
+	  `beginTime` datetime DEFAULT NULL,
+	  `endTime` datetime DEFAULT NULL,
+	  
+	  `status` varchar(20) DEFAULT NULL,
+	  `totalCount` int(11) DEFAULT NULL,
+	  `upgradeCount` int(11) DEFAULT NULL,
+	  
+	  `changeCount` int(11) DEFAULT NULL,
+	  `runoffCount` int(11) DEFAULT NULL,
+	  `remark` varchar(500) DEFAULT NULL,
+	  
+	  `uploadTime` datetime DEFAULT NULL,
+	  `uploadPath` varchar(200) DEFAULT NULL,
+	  `uploadFilename` varchar(100) DEFAULT NULL,
+	  
+	  CONSTRAINT FOREIGN KEY (`courseTypeId`) REFERENCES `crm_course_type` (`courseTypeId`)
+	) ;
+	 */
+	private String  classId  ;
+	private String  courseTypeId  ;
+	private String  name  ;
+	private Date  beginTime  ;
+	private Date  endTime  ;
+	private String  status  ;
+	private int  totalCount  ;
+	private int upgradeCount    ;
+	private int changeCount    ;
+	private int runoffCount    ;
+	private String  remark  ;
+	private Date uploadTime    ;
+	private String  uploadPath  ;
+	private String   uploadFilename ;
+	
+	private CrmCourseType courseType;
+	
+}

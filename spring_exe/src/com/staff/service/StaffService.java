@@ -1,9 +1,23 @@
 package com.staff.service;
 
-import com.staff.domain.CrmStaff;
+import java.util.List;
+
+import domain.CrmStaff;
+
+ 
 
 public interface StaffService {
 
 
-	public CrmStaff login(CrmStaff staff);
+	public CrmStaff logins(CrmStaff staff);
+	
+	public List<CrmStaff> showStaff();
+	
+	public CrmStaff  findByStaffId(String StaffId);
+
+	public void add(CrmStaff staff);
+
+	public void updateStaff(CrmStaff staff);
+
+	public void deleteStaff(CrmStaff staff);
 }

@@ -1,0 +1,28 @@
+package com.post;
+
+import java.util.List;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import domain.CrmDepartment;
+import domain.CrmPost;
+
+public class PostDaoImp  extends HibernateDaoSupport  implements PostDao{
+	
+	
+	
+	public List<CrmPost> findAll(){
+		List<CrmPost> allPost = this.getHibernateTemplate().find("from  CrmPost");
+		return allPost;
+	}
+
+ 
+
+	@Override
+	public List<CrmPost> findAllByDep(CrmDepartment departmeng) {
+		List<CrmPost> allPost = this.getHibernateTemplate().find(" from  CrmPost where depId=?",departmeng );
+		System.out.println(allPost+"allPost");
+		return allPost;
+	}
+
+}

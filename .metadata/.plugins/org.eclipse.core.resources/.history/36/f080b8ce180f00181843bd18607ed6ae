@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+ 
+	<package name="struts-staff" namespace="/" extends="common">
+		<action name="staffAction_*" class="com.staff.web.action.StaffAction" method="{1}">
+			<result name="success" type="redirectAction">staffAction_home</result>
+			<result name="home">/WEB-INF/pages/frame.jsp</result>
+			<result name="showStaff">/WEB-INF/pages/staff/listStaff.jsp</result>
+			<result name="editjsp" >/WEB-INF/pages/staff/editStaff.jsp</result>
+			<result name="addjsp" >/WEB-INF/pages/staff/addStaff.jsp</result>
+		</action>
+		
+		 
+	
+	</package>
+	
+	
+	
+	
+ 
+</struts>
